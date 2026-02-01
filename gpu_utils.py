@@ -17,8 +17,8 @@ def setup_gpu():
     cuda_available = torch.cuda.is_available()
     
     if cuda_available:
-        print(f"✓ CUDA available: {cuda_available}")
-        print(f"✓ Number of GPUs: {torch.cuda.device_count()}")
+        print(f"[+] CUDA available: {cuda_available}")
+        print(f"[+] Number of GPUs: {torch.cuda.device_count()}")
         
         for i in range(torch.cuda.device_count()):
             gpu_name = torch.cuda.get_device_name(i)
@@ -27,18 +27,18 @@ def setup_gpu():
         
         # Set default GPU device
         torch.cuda.set_device(0)
-        print(f"\n✓ Using GPU: {torch.cuda.get_device_name(0)}")
+        print(f"\n[+] Using GPU: {torch.cuda.get_device_name(0)}")
         
         # Enable faster CUDA kernels
         torch.backends.cudnn.benchmark = True
-        print("✓ CUDA benchmarking enabled (faster convolutions)")
+        print("[+] CUDA benchmarking enabled (faster convolutions)")
         
         # Enable automatic mixed precision (AMP)
-        print("✓ Mixed precision training ready (torch.autocast)")
+        print("[+] Mixed precision training ready (torch.autocast)")
         
         return True
     else:
-        print("⚠️  No GPU found. Using CPU instead.")
+        print("[!] No GPU found. Using CPU instead.")
         print("\nTo use GPU, ensure you have:")
         print("  - NVIDIA GPU (RTX series recommended)")
         print("  - CUDA Toolkit 11.8+ installed")
@@ -61,23 +61,23 @@ def get_device_info():
     print("DEVICE INFORMATION (PyTorch)")
     print("="*80)
     
-    print(f"✓ PyTorch Version: {torch.__version__}")
-    print(f"✓ CUDA Available: {torch.cuda.is_available()}")
-    print(f"✓ CUDA Version: {torch.version.cuda}")
-    print(f"✓ cuDNN Version: {torch.backends.cudnn.version()}")
-    print(f"✓ Number of CPUs: {torch.get_num_threads()}")
-    print(f"✓ Number of GPUs: {torch.cuda.device_count()}")
+    print(f"[+] PyTorch Version: {torch.__version__}")
+    print(f"[+] CUDA Available: {torch.cuda.is_available()}")
+    print(f"[+] CUDA Version: {torch.version.cuda}")
+    print(f"[+] cuDNN Version: {torch.backends.cudnn.version()}")
+    print(f"[+] Number of CPUs: {torch.get_num_threads()}")
+    print(f"[+] Number of GPUs: {torch.cuda.device_count()}")
     
     if torch.cuda.is_available():
-        print(f"✓ GPU Name: {torch.cuda.get_device_name(0)}")
-        print(f"✓ GPU Memory: {torch.cuda.get_device_properties(0).total_memory / (1024**3):.1f} GB")
+        print(f"[+] GPU Name: {torch.cuda.get_device_name(0)}")
+        print(f"[+] GPU Memory: {torch.cuda.get_device_properties(0).total_memory / (1024**3):.1f} GB")
         
         # Test GPU computation
         device = torch.device('cuda:0')
         a = torch.randn(1000, 1000, device=device)
         b = torch.randn(1000, 1000, device=device)
         c = torch.matmul(a, b)
-        print(f"✓ GPU test computation successful: {c.shape}")
+        print(f"[+] GPU test computation successful: {c.shape}")
         
         # Clear GPU memory
         del a, b, c
