@@ -5,6 +5,12 @@ Visualization module for RL training progress
 import numpy as np
 import matplotlib.pyplot as plt
 from sklearn.metrics import confusion_matrix, roc_curve, auc, classification_report
+import os
+from pathlib import Path
+
+# Determine results directory (parent of src when running from root main.py)
+RESULTS_DIR = Path(__file__).parent.parent / 'results'
+RESULTS_DIR.mkdir(parents=True, exist_ok=True)
 
 
 def get_predictions(agents, splits, ml_only=False):
@@ -115,8 +121,8 @@ def plot_rl_training_progress(all_agents, n_episodes, max_steps_per_episode):
     axes[1, 1].grid(True, alpha=0.3)
 
     plt.tight_layout()
-    plt.savefig('rl_training_progress.png', dpi=150, bbox_inches='tight')
-    print("\n✓ RL training visualization saved: rl_training_progress.png")
+    plt.savefig(RESULTS_DIR / 'rl_training_progress.png', dpi=150, bbox_inches='tight')
+    print(f"\n[+] RL training visualization saved: {RESULTS_DIR / 'rl_training_progress.png'}")
     plt.show()
 
 
@@ -532,8 +538,8 @@ def plot_learning_curves(learning_curves, n_episodes):
     axes[1, 2].remove()
     
     plt.tight_layout()
-    plt.savefig('learning_curves_rewards.png', dpi=150, bbox_inches='tight')
-    print("  ✓ Saved: learning_curves_rewards.png")
+    plt.savefig(RESULTS_DIR / 'learning_curves_rewards.png', dpi=150, bbox_inches='tight')
+    print(f"  [+] Saved: {RESULTS_DIR / 'learning_curves_rewards.png'}")
     plt.show()
     
     # Plot 2: Losses over episodes
@@ -567,8 +573,8 @@ def plot_learning_curves(learning_curves, n_episodes):
     axes[1, 2].remove()
     
     plt.tight_layout()
-    plt.savefig('learning_curves_losses.png', dpi=150, bbox_inches='tight')
-    print("  ✓ Saved: learning_curves_losses.png")
+    plt.savefig(RESULTS_DIR / 'learning_curves_losses.png', dpi=150, bbox_inches='tight')
+    print(f"  [+] Saved: {RESULTS_DIR / 'learning_curves_losses.png'}")
     plt.show()
     
     # Plot 3: Comparison of all agents together
@@ -600,8 +606,8 @@ def plot_learning_curves(learning_curves, n_episodes):
     ax2.grid(True, alpha=0.3)
     
     plt.tight_layout()
-    plt.savefig('learning_curves_comparison.png', dpi=150, bbox_inches='tight')
-    print("  ✓ Saved: learning_curves_comparison.png")
+    plt.savefig(RESULTS_DIR / 'learning_curves_comparison.png', dpi=150, bbox_inches='tight')
+    print(f"  [+] Saved: {RESULTS_DIR / 'learning_curves_comparison.png'}")
     plt.show()
     
     print("\n[VISUALIZATION] Learning curves generated successfully!")

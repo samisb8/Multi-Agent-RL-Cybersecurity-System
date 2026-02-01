@@ -1,11 +1,21 @@
 """
-Main training pipeline
+Main training pipeline - Entry point from root directory
+Imports modules from src/ and saves outputs to results/
 """
+
+import sys
+import os
+from pathlib import Path
+
+# Add src/ to path so imports work
+src_path = Path(__file__).parent / 'src'
+sys.path.insert(0, str(src_path))
 
 import numpy as np
 import torch
 import random
 import warnings
+
 from config import *
 from data_loader import (
     load_nsl_kdd, preprocess_nsl_kdd, create_agent_datasets,
