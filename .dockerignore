@@ -1,0 +1,38 @@
+# Git
+.git
+.gitignore
+
+# Python
+__pycache__
+*.py[cod]
+.Python
+*.egg-info
+dist
+build
+.eggs
+
+# IDE
+.vscode
+.idea
+*.swp
+.DS_Store
+
+# Testing
+.pytest_cache
+.coverage
+
+# Logs
+*.log
+logs/
+
+# Data/Cache
+*.db
+.cache
+
+# OS
+Thumbs.db
+
+# Temp
+tmp/
+temp/
+*.tmp

@@ -1,0 +1,59 @@
+version: '3.9'
+
+services:
+  rl-cybersecurity:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    
+    image: multi-agent-rl:latest
+    container_name: rl-cybersecurity-training
+    
+    # GPU Auto-Detection
+    # If NVIDIA Docker runtime is installed:
+    #   → Uses GPU (CUDA-capable)
+    # If NOT installed:
+    #   → Falls back to CPU automatically
+    runtime: nvidia
+    
+    environment:
+      # GPU support (ignored on CPU systems)
+      - NVIDIA_VISIBLE_DEVICES=all
+      - NVIDIA_DRIVER_CAPABILITIES=compute,utility
+      - PYTHONUNBUFFERED=1
+    
+    # Volume mounts
+    volumes:
+      - ./data:/app/data:rw
+      - ./outputs:/app/outputs:rw
+      - ./logs:/app/logs:rw
+    
+    # Network
+    networks:
+      - rl-network
+    
+    # Restart on failure
+    restart: on-failure:3
+    
+    # Logging
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+    
+    # Interactive
+    stdin_open: true
+    tty: true
+    
+    # Health check
+    healthcheck:
+      test: ["CMD", "python", "-c", "import torch; print(f'GPU: {torch.cuda.is_available()}')"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+
+networks:
+  rl-network:
+    driver: bridge
